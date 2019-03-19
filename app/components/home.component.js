@@ -4,13 +4,14 @@
     angular.module('taskApp').component('home', {
         controllerAs: 'vm',
         controller: function (taskService) {
-            var vm = this;
 
-            vm.tasks = null;
+            var vm = this;
+            vm.tasks = [];
 
             vm.$onInit = function () {
-                taskService.getAllTasks().then(function (tasks) {
-                    vm.tasks = tasks;
+                taskService.getAllTasks().then(function (response) {
+                    vm.tasks.push(angular.copy(response));
+                    console.log(vm.tasks);
                 });
             }
         },

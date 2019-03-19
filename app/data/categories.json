@@ -1,10 +1,5 @@
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "sourceMap": true
-  },
-  "exclude": [
-    "node_modules"
-  ]
-}
+[
+  {"categoryId": 1, "name":"Casa"},
+  {"categoryId": 2, "name":"Faculdade"},
+  {"categoryId": 3, "name":"Trabalho"}
+]

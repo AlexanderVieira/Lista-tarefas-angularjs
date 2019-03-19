@@ -1,4 +1,4 @@
-<section class="jumbotron">
+<section>
     <div class="panel panel-primary">
         <div class="panel-heading">Tarefas Pendentes</div>
         <div class="panel-body">
@@ -11,13 +11,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="task in vm.tasks | filter: {done: false}">
+                <tr ng-repeat="task in vm.tasks[0] | filter: {done: true}">
                     <td><input type="checkbox" ng-model="task.done"></td>
                     <td>{{task.name}}</td>
                     <td>{{task.category}}</td>
                 </tr>
                 </tbody>
             </table>
+
         </div>
     </div>
     <div class="panel panel-primary">
@@ -32,7 +33,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="task in vm.tasks | filter: {done: true}">
+                <tr ng-repeat="task in vm.tasks[0] | filter: {done: false}">
                     <td><input type="checkbox" ng-model="task.done"></td>
                     <td>{{task.name}}</td>
                     <td>{{task.category}}</td>

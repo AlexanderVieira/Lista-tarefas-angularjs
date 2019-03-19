@@ -15,12 +15,12 @@
             {
                 name: 'tarefas',
                 url: '/tarefas',
-                templateUrl: 'templates/tarefas.component.html'
+                templateUrl: 'templates/task.component.html'
             },
             {
                 name: 'categorias',
                 url: '/categorias',
-                templateUrl: 'templates/categorias.component.html'
+                templateUrl: 'templates/category.component.html'
             },
             {
                 name: 'tarefa',
