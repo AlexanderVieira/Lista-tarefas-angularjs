@@ -6,8 +6,8 @@
             name: '<',
             addCategory: '&'
         },
-        // controllerAs: 'vm',
-        controller: function categoryCtrl(categoryService) {
+        controllerAs: 'vm',
+        controller: function (categoryService) {
 
             var vm = this;
             vm.categories = [];
