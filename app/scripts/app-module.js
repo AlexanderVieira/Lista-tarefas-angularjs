@@ -1,3 +1,4 @@
+/*
 (function () {
     'use strict';
 
@@ -50,5 +51,33 @@
         states.forEach(function (state) {
             $stateProvider.state(state);
         });
+    });
+})();*/
+
+(function () {
+    'use strict';
+    var appModule = angular.module('taskApp', ['ngRoute']);
+
+    appModule.controller('mainCtrl', function ($scope, $routeParams) {
+
+        $scope.homeTitle = "Listagem por tarefas realizadas";
+        $scope.taskTitle = "Lista de tarefas";
+        $scope.addTaskTitle = "Adicionar tarefas";
+        $scope.categoryTitle = "Lista de categorias";
+        $scope.addCategoryTitle = "Adicionar categoria";
+
+    });
+
+    appModule.config(function ($routeProvider, $locationProvider) {
+        $routeProvider
+            .when("/", {
+                template: "<home></home>",
+            })
+            .when("/tasks", {
+                template: "<task></task>",
+            })
+            .when("/categories", {
+                template: "<category></category>",
+            });
     });
 })();

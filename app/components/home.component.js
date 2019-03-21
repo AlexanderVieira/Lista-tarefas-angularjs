@@ -11,7 +11,6 @@
             vm.$onInit = function () {
                 taskService.getAllTasks().then(function (response) {
                     vm.tasks.push(angular.copy(response));
-                    console.log(vm.tasks);
                 });
             }
         },
