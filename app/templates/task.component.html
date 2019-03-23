@@ -20,7 +20,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="task in vm.tasks[0] | filter: {task: name}">
+                <tr ng-repeat="task in vm.tasks | filter: {task: name}">
                     <td><input type="checkbox" ng-model="task.done"></td>
                     <td>{{task.name}}</td>
                     <td>{{task.category}}</td>
@@ -45,9 +45,12 @@
                 <section>
                     <div class="add-task">
                         <form name="taskForm">
-                            <label>Tarefa:</label><input class="form-control" type="text" ng-model="vm.task.name" name="name" placeholder="Nome da Tarefa" ng-required="true" ng-minlength="4"/>
-                            <label>Categoria:</label><input class="form-control" type="text" ng-model="vm.task.category" name="category" placeholder="Nome da Categoria" ng-required="true" ng-minlength="4"/>
-                            <label>Tarefa Realizada:</label><input class="form-control" type="text" ng-model="vm.task.done" name="done" placeholder="Status" ng-required="true" ng-minlength="4"/>
+                            <label>Tarefa:</label>
+                            <input class="form-control" type="text" ng-model="vm.task.name" name="name" placeholder="Nome da Tarefa" ng-required="true" ng-minlength="4"/>
+                            <label>Categoria:</label>
+                            <input class="form-control" type="text" ng-model="vm.task.category" name="category" placeholder="Nome da Categoria" ng-required="true" ng-minlength="4"/>
+                            <label>Tarefa Realizada:</label>
+                            <input class="form-control" type="text" ng-model="vm.task.done" name="done" placeholder="Status" ng-required="true" ng-minlength="4"/>
                             <button type="button" class="btn btn-primary" ng-click="vm.addTask(task)">+Tarefa</button>
                         </form>
                         <!-- <div ng-messages="taskForm.name.$error" class="alert alert-danger">
@@ -84,7 +87,7 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-primary">
+                    <!--<div class="panel panel-primary">
                         <div class="panel-heading">Tarefas</div>
                         <div class="panel-body">
                             <table class="table">
@@ -96,7 +99,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="task in vm.tasks[0]">
+                                <tr ng-repeat="task in vm.tasks">
                                     <td><input type="checkbox" ng-model="task.done"></td>
                                     <td>{{task.name}}</td>
                                     <td>{{task.category}}</td>
@@ -104,7 +107,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div>-->
                 </section>
 
             </div>

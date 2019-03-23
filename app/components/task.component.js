@@ -13,29 +13,34 @@
 
             var vm = this;
             vm.tasks = [];
+            vm.task = {
+                name: '',
+                category: '',
+                done: false,
+            };
 
             vm.$onInit = function () {
                 taskService.getAllTasks().then(function (response) {
-                    vm.tasks.push(angular.copy(response));
+                    vm.tasks = response;
                 });
-            };
 
-            vm.addTask = function (task) {
-                console.log(task);
-                var items = vm.tasks;
-                console.log(items);
-                var add = true;
-                for(item of items){
-                    if(item.name === task.name && item.category === task.category){
-                        add = false;
-                        break;
+                vm.addTask = function (task) {
+                    console.log(vm.task);
+                    var items = vm.tasks;
+                    console.log(items);
+                    var add = true;
+                    for(let item of items){
+                        if(item.name === vm.task.name && item.category === vm.task.category){
+                            add = false;
+                            break;
+                        }
+                    }
+
+                    if(add){
+                        vm.tasks.push(angular.copy(vm.task));
                     }
                 }
-
-                if(add){
-                    vm.tasks.push(angular.copy(task));
-                }
-            }
+            };
         },
         templateUrl: 'templates/task.component.html'
     });

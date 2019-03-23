@@ -11,30 +11,34 @@
 
             var vm = this;
             vm.categories = [];
+            vm.category = {
+                name: ''
+            };
 
             vm.$onInit = function () {
                 categoryService.getAllCategories().then(function (response) {
-                    vm.categories.push(angular.copy(response));
-                    console.log(vm.categories);
-                });
-            };
+                    vm.categories = response;
 
-            vm.addCategory = function (category) {
-                console.log(category);
-                var items = vm.categories;
-                console.log(items);
-                var add = true;
-                for(item of items){
-                    if(item.name === category.name){
-                        add = false;
-                        break;
+                });
+
+                vm.addCategory = function (category) {
+
+                    var items = vm.categories;
+                    var add = true;
+                    for(let item of items){
+                        if(item.name === vm.category.name){
+                            add = false;
+                            break;
+                        }
+                    }
+
+                    if(add){
+                        vm.categories.push(angular.copy(vm.category));
                     }
                 }
+            };
 
-                if(add){
-                    vm.categories.push(angular.copy(category));
-                }
-            }
+
         },
         templateUrl: 'templates/category.component.html'
     });
