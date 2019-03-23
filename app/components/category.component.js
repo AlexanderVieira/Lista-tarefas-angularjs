@@ -21,9 +21,12 @@
 
                 });
 
-                vm.addCategory = function (category) {
+                vm.addCategory = function (name) {
+                    console.log(name);
+                    console.log(categoryService);
+                    categoryService.addCategory(name);
 
-                    var items = vm.categories;
+                    /*var items = vm.categories;
                     var add = true;
                     for(let item of items){
                         if(item.name === vm.category.name){
@@ -34,7 +37,7 @@
 
                     if(add){
                         vm.categories.push(angular.copy(vm.category));
-                    }
+                    }*/
                 }
             };
 
