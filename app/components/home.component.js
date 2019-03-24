@@ -16,7 +16,7 @@
                 vm.redirectTasks = function(){
 
                     $location.path("tasks");
-                }
+                };
 
                 vm.redirectCategories = function(){
 

@@ -17,6 +17,9 @@
             .when("/", {
                 template: "<home></home>",
             })
+            .when("/home", {
+            template: "<home></home>",
+            })
             .when("/tasks", {
                 template: "<task></task>",
             })
