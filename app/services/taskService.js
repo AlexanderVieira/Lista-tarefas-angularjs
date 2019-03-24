@@ -5,14 +5,25 @@
 
     function taskService($http, $q, $log) {
 
+        var key = "tasks";
+        let t = localStorage.getItem(key);
+        if (t != null) {
+            this.tasks = angular.fromJson(t);
+        }
+
         return {
-            getAllTasks: getAllTasks
+            getAllTasks: getAllTasks,
+            addTask: addTask,
+            deleteTask: deleteTask
         };
 
         function getAllTasks() {
+            var deferred = $q.defer();
             return $http.get('data/tasks.json')
                 .then(function(response) {
-                    return response.data;
+                    let tasks =  response.data;
+                    deferred.resolve(tasks);
+                    return deferred.promise;
                 })
                 .catch(function(response) {
                     $log.error('Error retrieving tasks: ' + response.statusText);
@@ -20,204 +31,50 @@
                 })
         }
 
+        function addTask(task, list) {
+
+            var add = true;
+            for (let item of list) {
+
+                if (item.name === task.name && item.category === task.category) {
+                    add = false;
+                    break;
+                }
+            }
+            if (add) {
+                list.push(task);
+            }
+            localStorage.setItem(key, angular.toJson(list));
+        }
+
+        function deleteTask(task, list) {
+
+            /*let myTask = task;
+            console.log(myTask);*/
+
+            var index = list.indexOf(task);
+            if (index != -1) {
+                list.splice(index, 1)
+            }
+            localStorage.setItem(key, angular.toJson(list));
+
+            /*for (var i = list.length - 1; i >= 0; i--) {
+
+                if (list[i].name === task.name && list[i].category === task.category) {
+                    list.splice(i, 1);
+                    break;
+                }
+            }
+            localStorage.setItem(key, angular.toJson(list));*/
+
+            /*angular.forEach(list, function (task, index) {
+                console.log(task);
+                if (task === myTask){
+                    list.splice(index, 1);
+                }
+            });
+            localStorage.setItem(key, angular.toJson(list));*/
+        }
     }
 
 }());
-
-/*(function () {
-    'use strict';
-
-    angular.module('taskApp').factory('taskService', function ($http) {
-
-        var self = this;
-
-        self.getAllTasks = function () {
-            return $http.get('data/tasks.json')
-                .then(function (result) {
-                    return result.data;
-                });
-        };
-
-        return this;
-    });
-})();*/
-
-/*(function() {
-
-    angular.module('taskApp')
-        .factory('taskService', ['$q', '$timeout','$http', taskService]);
-
-    function taskService($q, $http, $timeout) {
-
-        return {
-            getAllTasks: getAllTasks
-        };
-
-        function getAllTasks() {
-
-            return $http.get('data/tasks.json')
-                .then(function(response) {
-                    var transformed = angular.fromJson(response.data);
-                    transformed.forEach(function (currentValue, index, array) {
-                        currentValue.dateDownloaded = new Date();
-                    });
-                    return transformed;
-                })
-                .catch(function(response) {
-                    $log.error('Error retrieving tasks: ' + response.statusText);
-                    return $q.reject('Error retrieving tasks.');
-                })
-
-            var deferred = $q.defer();
-
-
-            $timeout(function () {
-
-                var successful = true;
-                if (successful) {
-
-                    deferred.notify('Just getting started gathering books...');
-                    deferred.notify('Almost done gathering books...');
-
-                    deferred.resolve(tasks);
-
-                } else {
-
-                    deferred.reject('Error retrieving books.');
-
-                }
-
-            }, 1000);
-
-            return deferred.promise;
-
-        }
-
-    }
-
-}());*/
-
-/*
-(function() {
-
-    angular.module('taskApp')
-        .factory('taskService', ['$q', '$timeout', taskService]);
-
-
-    function taskService($q, $timeout) {
-
-        return {
-            getAllTasks: getAllTasks
-        };
-
-        function getAllTasks() {
-
-            var tasks = [
-                {
-                    taskId: 1,
-                    name: 'Varrer o quarto',
-                    category: 'Casa',
-                    done: false
-                },
-                {
-                    taskId: 2,
-                    name: 'Lavar a louça',
-                    category: 'Casa',
-                    done: true
-                },
-                {
-                    taskId: 3,
-                    name: 'Lavar as roupas',
-                    category: 'Casa',
-                    done: false
-                },
-                {
-                    taskId: 4,
-                    name: 'Consertar a porta',
-                    category: 'Casa',
-                    done: false
-                },
-                {
-                    taskId: 5,
-                    name: 'Terminar o relatório',
-                    category: 'Trabalho',
-                    done: false
-                },
-                {
-                    taskId: 6,
-                    name: 'Estudar para a próxima reunião',
-                    category: 'Trabalho',
-                    done: false
-                },
-                {
-                    taskId: 7,
-                    name: 'Enviar email sobre o problema',
-                    category: 'Trabalho',
-                    done: false
-                },
-                {
-                    taskId: 8,
-                    name: 'Levar pó de café',
-                    category: 'Trabalho',
-                    done: true
-                },
-                {
-                    taskId: 9,
-                    name: 'Comprar canetas novas',
-                    category: 'Trabalho',
-                    done: true
-                },
-                {
-                    taskId: 10,
-                    name: 'Estudar Etapa 1',
-                    category: 'Faculdade',
-                    done: true
-                },
-                {
-                    taskId: 11,
-                    name: 'Estudar Etapa 2',
-                    category: 'Faculdade',
-                    done: true
-                },
-                {
-                    taskId: 12,
-                    name: 'Estudar Etapa 3',
-                    category: 'Faculdade',
-                    done: false
-                },
-                {
-                    taskId: 13,
-                    name: 'Fazer TP1',
-                    category: 'Faculdade',
-                    done: false
-                }
-
-            ];
-
-            var deferred = $q.defer();
-
-
-            $timeout(function () {
-
-                var successful = true;
-                if (successful) {
-
-                    deferred.notify('Just getting started gathering books...');
-                    deferred.notify('Almost done gathering books...');
-
-                    deferred.resolve(tasks);
-
-                } else {
-
-                    deferred.reject('Error retrieving books.');
-
-                }
-
-            }, 1000);
-
-            return deferred.promise;
-
-        }
-    }
-
-}());*/

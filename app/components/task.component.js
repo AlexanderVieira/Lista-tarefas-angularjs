@@ -25,20 +25,14 @@
                 });
 
                 vm.addTask = function (task) {
-                    console.log(vm.task);
-                    var items = vm.tasks;
-                    console.log(items);
-                    var add = true;
-                    for(let item of items){
-                        if(item.name === vm.task.name && item.category === vm.task.category){
-                            add = false;
-                            break;
-                        }
-                    }
+                    var list = vm.tasks;
+                    taskService.addTask(task, list);
+                };
 
-                    if(add){
-                        vm.tasks.push(angular.copy(vm.task));
-                    }
+                vm.deleteTask = function (task) {
+                    console.log(task);
+                    var list = vm.tasks;
+                    taskService.deleteTask(task, list);
                 }
             };
         },

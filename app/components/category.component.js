@@ -18,30 +18,18 @@
             vm.$onInit = function () {
                 categoryService.getAllCategories().then(function (response) {
                     vm.categories = response;
-
                 });
 
-                vm.addCategory = function (name) {
-                    console.log(name);
-                    console.log(categoryService);
-                    categoryService.addCategory(name);
+                vm.addCategory = function (category) {
+                    var list = vm.categories;
+                    categoryService.addCategory(category, list);
+                };
 
-                    /*var items = vm.categories;
-                    var add = true;
-                    for(let item of items){
-                        if(item.name === vm.category.name){
-                            add = false;
-                            break;
-                        }
-                    }
-
-                    if(add){
-                        vm.categories.push(angular.copy(vm.category));
-                    }*/
+                vm.deleteCategory = function(category){
+                    var list = vm.categories;
+                    categoryService.deleteCategory(category, list);
                 }
             };
-
-
         },
         templateUrl: 'templates/category.component.html'
     });
